@@ -1,0 +1,25 @@
+{
+  "name": "fs_admin_vue",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "element-plus": "^2.8.6",
+    "less": "^4.2.0",
+    "pinia": "^2.1.7",
+    "reset.css": "^2.0.2",
+    "vue": "^3.4.29",
+    "vue-router": "^4.3.3"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.5",
+    "unplugin-auto-import": "^0.18.3",
+    "unplugin-vue-components": "^0.27.4",
+    "vite": "^5.3.1"
+  }
+}

@@ -1,100 +1,46 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-const routes = [
+const publicRoute = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/login/index.vue')
-  }
+    component: () => import('@/views/login/index.vue') // 这里依然可以尝试 @，不行的话改为相对路径
+  },
 ];
 
-const router = createRouter({
-  history: createWebHistory(),
-  routes
-});
-
-// 转换路径中 @ 为 /src
-function resolveComponentPath(componentPath) {
-  return componentPath ? () => import(componentPath.replace(/^@/, '/src')) : null
-}
-
-// 递归函数，处理父子路由关系
-function addRoutesFromConfig(routesConfig, parentName = null) {
-  routesConfig.forEach(route => {
-    const { path, name, component, children, ...rest } = route;
-
-    const resolvedPath = resolveComponentPath(component);
-
-
-
-    // 生成路由记录
-    const routeRecord = {
-      path,
-      name,
-      component: resolvedPath,
-      ...rest
-    };
-
-    // 如果有父路由，作为子路由添加
-    if (parentName) {
-      router.addRoute(parentName, routeRecord);
-    } else {
-      router.addRoute(routeRecord);
-    }
-
-    // 如果有子路由，递归调用
-    if (children && children.length > 0) {
-      addRoutesFromConfig(children, name); // 使用当前路由的名称作为父路由
-    }
-  });
-}
-
-// 从后端获取的动态路由配置
 const dynamicRoutes = [
   {
-    "path": "/",
-    "name": "layout",
-    "redirect": "/home",
-    "component": "@/layout/index.vue",
-    "children": [
+    path: "/",
+    name: "layout",
+    redirect: "/home",
+    component: "layout/index.vue",
+    children: [
       {
-        "path": "/home",
-        "name": "home",
-        "component": "@/views/home/index.vue",
-        "meta": {
-          "type": "doc"
-        }
+        path: "/home",
+        name: "home",
+        component: "home/index.vue",
       },
       {
-        "path": "/system",
-        "name": "system",
-        "meta": {
-          "type": "menu"
+        path: "system",
+        name: "system",
+        meta: {
+          type: "menu"
         },
-        "children": [
+        children: [
           {
-            "path": "user",
-            "name": "user",
-            "component": "@/views/system/user/index.vue",
-            "meta": {
-              "type": "doc"
-            }
+            path: "user",
+            name: "user",
+            component: "system/user/index.vue",
           },
           {
-            "path": "role",
-            "name": "role",
-            "component": "@/views/system/role/index.vue",
-            "meta": {
-              "type": "doc"
-            }
+            path: "role",
+            name: "role",
+            component: "system/role/index.vue",
           },
           {
-            "path": "menu",
-            "name": "menu",
-            "component": "@/views/system/menu/index.vue",
-            "meta": {
-              "type": "doc"
-            }
+            path: "menu",
+            name: "menu",
+            component: "system/menu/index.vue",
           }
         ]
       }
@@ -102,6 +48,28 @@ const dynamicRoutes = [
   }
 ];
 
-addRoutesFromConfig(dynamicRoutes);
+const getComponent = (componentPath) => {
+  return () => import(`../views/${componentPath}`); // 使用相对路径
+};
+
+const convertRoutes = (routes) => {
+  return routes.map(route => {
+    const newRoute = { ...route };
+    if (newRoute.component) {
+      newRoute.component = getComponent(newRoute.component);
+    }
+    if (newRoute.children) {
+      newRoute.children = convertRoutes(newRoute.children);
+    }
+    return newRoute;
+  });
+};
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes: [...publicRoute, ...convertRoutes(dynamicRoutes)],
+});
+
+console.log(router.getRoutes())
 
 export default router;

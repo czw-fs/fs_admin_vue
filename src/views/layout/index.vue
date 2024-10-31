@@ -1,6 +1,6 @@
 <script setup>
-import Side from "@/layout/component/side/index.vue";
-import Nav from "@/layout/component/nav/index.vue";
+import Side from "@/views/layout/component/side/index.vue";
+import Nav from "@/views/layout/component/nav/index.vue";
 
 </script>
 

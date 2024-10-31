@@ -9,11 +9,11 @@ const closeMenu = () => {
 }
 
 const handleOpen = async (key, keyPath) => {
-  console.log(key, keyPath)
+  // console.log(key, keyPath)
 }
 
 const handleClose = async (key, keyPath) => {
-  console.log(key, keyPath)
+  // console.log(key, keyPath)
 }
 
 
@@ -31,48 +31,6 @@ const handleClose = async (key, keyPath) => {
       @close="handleClose"
       router
   >
-
-<!--    <template v-for="route in routes">-->
-<!--      &lt;!&ndash;      是否是文档&ndash;&gt;-->
-<!--      <template v-if="route.meta.type = 'doc'">-->
-<!--        <el-menu-item :index="route.path">-->
-<!--          <el-icon>-->
-<!--            <icon-menu/>-->
-<!--          </el-icon>-->
-<!--          <template #title>-->
-<!--            <div class="middle-title">route.name</div>-->
-<!--          </template>-->
-<!--        </el-menu-item>-->
-<!--      </template>-->
-
-<!--      &lt;!&ndash;      是否是目录&ndash;&gt;-->
-<!--      <template v-if="route.meta.type = 'menu'">-->
-<!--        <el-sub-menu :index="route.path">-->
-<!--          <template style="width: 100px;text-align: center" #title>-->
-<!--            <el-icon>-->
-<!--              <icon-menu/>-->
-<!--            </el-icon>-->
-<!--            <span class="middle-title">route1.name</span>-->
-<!--          </template>-->
-
-<!--          &lt;!&ndash;          判断是否有子文档&ndash;&gt;-->
-<!--          <template v-if="route.children && route.children.length > 0">-->
-<!--            &lt;!&ndash;            遍历子文档&ndash;&gt;-->
-<!--            <template v-for="doc in route.children">-->
-<!--              <el-menu-item :index="doc.path">-->
-<!--                <el-icon>-->
-<!--                  <icon-menu/>-->
-<!--                </el-icon>-->
-<!--                <template #title>-->
-<!--                  <div class="middle-title">doc.name</div>-->
-<!--                </template>-->
-<!--              </el-menu-item>-->
-<!--            </template>-->
-<!--          </template>-->
-
-<!--        </el-sub-menu>-->
-<!--      </template>-->
-<!--    </template>-->
 
 
         <el-menu-item index="/home">
